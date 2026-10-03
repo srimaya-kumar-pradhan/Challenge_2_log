@@ -1,0 +1,99 @@
+# =====================================================================
+# Explainable Graph-Based Cyber Triage System Configuration
+# =====================================================================
+project:
+  name: "Explainable Graph-Based Cyber Triage System"
+  version: "1.0.0"
+  organization: "Organisation X"
+  timezone: "Asia/Kolkata" # UTC+05:30
+
+data:
+  raw_dir: "Data"
+  processed_dir: "processed"
+  outputs_dir: "outputs"
+  reports_dir: "reports"
+  neo4j_export_dir: "outputs/neo4j_csv"
+  web_activity_file: "web_activity.csv"
+  endpoint_security_file: "endpoint_security.csv"
+  usb_events_file: "usb_events.csv"
+  sha256sums_file: "SHA256SUMS"
+
+integrity:
+  enforce_sha256: true
+
+parsing:
+  datetime_format: "%d-%m-%Y %H:%M:%S"
+  quarantine_datetime_format: "%Y-%m-%d %H:%M"
+  chunk_size: 250000
+
+quarantine:
+  dedup_keys:
+    - "endpoint_id"
+    - "filename"
+    - "quarantined_at"
+    - "sha256"
+  malicious_filetype: "Malicious"
+
+web_analysis:
+  # Rarity definition: destination count across the entire fleet
+  rare_threshold_global: 50      # Seen < 50 times across 2.8M logs
+  singleton_threshold: 1          # Seen exactly 1 time
+  known_common_patterns:
+    - "google.com"
+    - "gstatic.com"
+    - "mozilla.org"
+    - "mozilla.net"
+    - "fastly.net"
+    - "cloudflare.com"
+
+correlation:
+  # Temporal correlation window around incident (quarantined_at)
+  window_before_minutes: 120      # 2 hours before quarantine event
+  window_after_minutes: 30        # 30 minutes after quarantine event
+  extended_window_hours: 6        # For deep investigation context
+
+anomaly_detection:
+  algorithm: "IsolationForest"
+  n_estimators: 150
+  contamination: 0.10            # Prioritize top ~10% behaviorally unusual endpoints
+  random_state: 42
+  features:
+    - "total_web_events"
+    - "unique_destinations"
+    - "destination_entropy"
+    - "rare_destination_count"
+    - "rare_destination_ratio"
+    - "quarantine_incident_count"
+    - "malicious_quarantine_count"
+    - "unique_malicious_hashes"
+    - "web_block_count"
+    - "temporal_correlation_count"
+    - "usb_event_count"
+
+triage_scoring:
+  # Deterministic, explainable weights for Investigation Priority Score (0 - 100)
+  weights:
+    malicious_quarantine: 35.0    # Direct AV signature detection
+    temporal_correlation: 25.0    # Web activity correlated within incident window
+    ml_anomaly_score: 15.0        # Behavioral anomaly from Isolation Forest
+    rare_destinations: 10.0       # Interaction with highly unusual destinations
+    web_block_events: 5.0         # Policy violation / web-filter triggers
+    usb_activity: 5.0             # Mass storage / unauthorized device connection
+    artifact_recurrence: 5.0      # Repeated malicious artifacts across days
+  max_score: 100.0
+  tiers:
+    critical: 75.0
+    high: 50.0
+    medium: 25.0
+    low: 0.0
+
+neo4j:
+  uri: "bolt://localhost:7687"
+  user: "neo4j"
+  password: "password123"
+  database: "neo4j"
+  batch_size: 5000
+
+grafana:
+  port: 3000
+  title: "Explainable Graph-Based Cyber Triage Dashboard"

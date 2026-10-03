@@ -1,0 +1,3 @@
+vid_pid,device_class,vendor_id,product_id,is_mass_storage
+abcd:1234,Mass_Storage,abcd,1234,True
+046d:c077,Human_Interface_Device,046d,c077,False

@@ -1,0 +1,9 @@
+endpoint_id,device_class,vid_pid,usb_event_time,usb_event_dt,has_security_incidents,incident_count,has_malicious_incident
+EPD24DBC,Mass_Storage,abcd:1234,22-09-2026 18:23:12,2026-09-22 18:23:12,False,0,False
+EPD24DBC,Mass_Storage,abcd:1234,22-09-2026 18:23:41,2026-09-22 18:23:41,False,0,False
+EPD24DBC,Mass_Storage,abcd:1234,22-09-2026 18:23:12,2026-09-22 18:23:12,False,0,False
+EPD24DBC,Mass_Storage,abcd:1234,22-09-2026 18:23:41,2026-09-22 18:23:41,False,0,False
+EP7FZ2XY,Human_Interface_Device,046d:c077,07-09-2026 22:34:11,2026-09-07 22:34:11,False,0,False
+EP7FZ2XY,Human_Interface_Device,046d:c077,07-09-2026 22:34:12,2026-09-07 22:34:12,False,0,False
+EP7FZ2XY,Human_Interface_Device,046d:c077,07-09-2026 22:34:13,2026-09-07 22:34:13,False,0,False
+EP7FZ2XY,Human_Interface_Device,046d:c077,07-09-2026 22:34:14,2026-09-07 22:34:14,False,0,False

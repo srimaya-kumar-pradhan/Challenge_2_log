@@ -1,0 +1,14 @@
+apiVersion: 1
+
+datasources:
+  - name: Neo4j-Triage-Graph
+    type: neo4j-datasource
+    access: proxy
+    url: bolt://neo4j:7687
+    user: neo4j
+    secureJsonData:
+      password: password123
+    isDefault: true
+    jsonData:
+      database: neo4j
+    editable: true

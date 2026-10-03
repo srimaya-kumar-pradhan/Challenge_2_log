@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Triage SOC Console | Organisation X Fleet Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <div class="shield-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">EXPLAINABLE CYBER TRIAGE SYSTEM</span>
+        <span class="brand-subtitle">Organisation X &bull; Military Intelligence Telemetry &bull; Sep 2026</span>
+      </div>
+    </div>
+    <div class="nav-metrics">
+      <div class="metric-badge tier-crit">
+        <span class="dot"></span> 10 CORRELATED CANDIDATES
+      </div>
+      <div class="metric-badge tier-status">
+        <span>INTEGRITY: SHA-256 PASS</span>
+      </div>
+      <div class="time-display" id="system-time">UTC+05:30 ACTIVE</div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="dashboard-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <nav class="side-menu">
+        <button class="nav-item active" data-tab="tab-overview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Executive Overview
+        </button>
+        <button class="nav-item" data-tab="tab-triage">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Priority Queue
+        </button>
+        <button class="nav-item" data-tab="tab-investigation">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Host Investigation
+        </button>
+        <button class="nav-item" data-tab="tab-artifacts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Artifacts & Hashes
+        </button>
+        <button class="nav-item" data-tab="tab-timeline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Temporal Correlation
+        </button>
+        <button class="nav-item" data-tab="tab-graph">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Evidence Graph
+        </button>
+        <button class="nav-item" data-tab="tab-ml">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          ML Anomaly Engine
+        </button>
+        <button class="nav-item" data-tab="tab-usb">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          USB Forensics
+        </button>
+        <button class="nav-item" data-tab="tab-ledger">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Evidence Ledger
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="analyst-info">
+          <span class="role-badge">DEFENSE INTERVIEW READY</span>
+          <span class="framework-version">Neo4j &bull; Grafana &bull; iForest</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content Workspace -->
+    <main class="main-content">
+      <!-- TAB 1: EXECUTIVE OVERVIEW -->
+      <section id="tab-overview" class="tab-pane active">
+        <div class="pane-header">
+          <h2>Executive Cyber Threat Overview</h2>
+          <p class="subtitle">Passive, explainable multi-source triage across 248 enterprise Linux endpoints</p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-label">Total Fleet Endpoints</span>
+            <span class="stat-value" id="kpi-endpoints">248</span>
+            <span class="stat-meta">Distributed across 19 military units</span>
+          </div>
+          <div class="stat-card stat-critical">
+            <span class="stat-label">Prioritized Candidates</span>
+            <span class="stat-value" id="kpi-candidates">10</span>
+            <span class="stat-meta">Web-to-Quarantine Temporal Correlation</span>
+          </div>
+          <div class="stat-card stat-warning">
+            <span class="stat-label">Confirmed Malware Detections</span>
+            <span class="stat-value" id="kpi-mal-hosts">33</span>
+            <span class="stat-meta">88 Deduplicated AV Signature Incidents</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Total Web Activity Records</span>
+            <span class="stat-value" id="kpi-web-records">2,812,118</span>
+            <span class="stat-meta">19,027 Unique External Destinations</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">USB Telemetry Events</span>
+            <span class="stat-value" id="kpi-usb-events">8</span>
+            <span class="stat-meta">1 Mass Storage | 1 HID Mouse (Benign)</span>
+          </div>
+        </div>
+
+        <!-- Highlight Box: Critical Findings Summary -->
+        <div class="card glass-panel mt-4">
+          <div class="card-header">
+            <h3>Key Executive Findings & Attack Path Syntheses</h3>
+          </div>
+          <div class="card-body">
+            <div class="findings-grid">
+              <div class="finding-item">
+                <div class="finding-badge crit-bg">PRIMARY VECTOR</div>
+                <h4>EPJ76RZV &bull; Spear-Phishing Spreadsheet Execution</h4>
+                <p>Host contacted Google Docs / Apps Viewer infrastructure (<code>doc-0k-74-apps-viewer.googleusercontent.com</code>) at 08:20 on 14-09-2026. Exactly 8 minutes later (08:28), antivirus quarantined malicious lure <code>COMPRESSED FINAL COMPARISION RETIREES WELFARE1.xlsx</code> (SHA: <code>d4a23078...</code>).</p>
+              </div>
+              <div class="finding-item">
+                <div class="finding-badge crit-bg">DOCUMENT LURE</div>
+                <h4>EPAJI3E5 &bull; Dual Document Exploit</h4>
+                <p>User downloaded <code>Lakeside traders.docx</code> at 12:44 and <code>Lakeside traders.pdf</code> at 12:59 on 17-09-2026, preceded by external web activity through Zoho infrastructure.</p>
+              </div>
+              <div class="finding-item">
+                <div class="finding-badge high-bg">DESKTOP TRACE</div>
+                <h4>Artifact Cluster &bull; recently-used.xbel</h4>
+                <p>46 quarantine events across multiple hosts involved <code>recently-used.xbel</code>. Antivirus detected signatures registered within the GNOME desktop file history manager upon user file interaction.</p>
+              </div>
+              <div class="finding-item">
+                <div class="finding-badge info-bg">PASSIVE AUDIT</div>
+                <h4>USB Isolation Proof</h4>
+                <p>Mass Storage device (<code>abcd:1234</code>) plugged into <code>EPD24DBC</code> on 22-09-2026, but host had zero security/quarantine incidents. USB did not temporally align with web compromises.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: PRIORITY QUEUE -->
+      <section id="tab-triage" class="tab-pane">
+        <div class="pane-header flex-between">
+          <div>
+            <h2>Investigation Priority Queue</h2>
+            <p class="subtitle">Explainable scoring combining deterministic AV alerts, temporal web correlation, and ML anomaly signals</p>
+          </div>
+          <div class="filter-controls">
+            <input type="text" id="triage-search" class="search-input" placeholder="Search Endpoint ID...">
+            <select id="tier-filter" class="select-input">
+              <option value="ALL">All Priority Tiers</option>
+              <option value="CRITICAL">Critical Priority (>=70)</option>
+              <option value="HIGH">High Priority (>=45)</option>
+              <option value="MEDIUM">Medium Priority (>=20)</option>
+              <option value="LOW">Low Priority (<20)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card glass-panel mt-3">
+          <div class="table-container">
+            <table class="data-table" id="triage-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Endpoint ID</th>
+                  <th>Priority Tier</th>
+                  <th>Priority Score</th>
+                  <th>Anomaly Score</th>
+                  <th>AV Incidents</th>
+                  <th>Temporal Web Corr</th>
+                  <th>Rare Dests</th>
+                  <th>Analyst Justification</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="triage-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: HOST INVESTIGATION -->
+      <section id="tab-investigation" class="tab-pane">
+        <div class="pane-header">
+          <h2>Deep-Dive Endpoint Investigation</h2>
+          <p class="subtitle">Complete forensic reconstruction of host telemetry, timeline, and relationships</p>
+        </div>
+
+        <div class="host-selector-bar glass-panel">
+          <label for="host-select">Select Endpoint to Inspect:</label>
+          <select id="host-select" class="select-input host-dropdown"></select>
+          <div id="host-quick-meta" class="quick-meta"></div>
+        </div>
+
+        <div class="investigation-grid mt-4">
+          <div class="card glass-panel">
+            <div class="card-header">
+              <h3>Deterministic Evidence Summary</h3>
+            </div>
+            <div class="card-body" id="host-evidence-details">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="card glass-panel">
+            <div class="card-header">
+              <h3>Correlated Pre-Incident Web Activity</h3>
+            </div>
+            <div class="card-body">
+              <div class="table-container-sm">
+                <table class="data-table-sm" id="host-web-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Destination</th>
+                      <th>Fleet Frequency</th>
+                      <th>Delta to Quarantine</th>
+                    </tr>
+                  </thead>
+                  <tbody id="host-web-tbody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: ARTIFACTS & IOCS -->
+      <section id="tab-artifacts" class="tab-pane">
+        <div class="pane-header">
+          <h2>Malware Artifacts & SHA-256 IOCs</h2>
+          <p class="subtitle">Deduplicated quarantine files, hash signatures, and cross-host spread analysis</p>
+        </div>
+
+        <div class="card glass-panel mt-3">
+          <div class="table-container">
+            <table class="data-table" id="artifacts-table">
+              <thead>
+                <tr>
+                  <th>Incident ID</th>
+                  <th>Host</th>
+                  <th>Quarantined File</th>
+                  <th>Category</th>
+                  <th>Quarantined At</th>
+                  <th>SHA-256 Hash</th>
+                  <th>Periodic Re-Scans</th>
+                </tr>
+              </thead>
+              <tbody id="artifacts-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: TEMPORAL CORRELATION -->
+      <section id="tab-timeline" class="tab-pane">
+        <div class="pane-header">
+          <h2>Cross-Source Temporal Correlation Timeline</h2>
+          <p class="subtitle">Traceability of web requests preceding AV quarantine within the 2-hour attack window</p>
+        </div>
+
+        <div class="card glass-panel mt-3">
+          <div class="table-container">
+            <table class="data-table" id="timeline-table">
+              <thead>
+                <tr>
+                  <th>Host</th>
+                  <th>Quarantined Artifact</th>
+                  <th>Quarantine Time</th>
+                  <th>Pre-Incident Web Requests</th>
+                  <th>Unique Dests</th>
+                  <th>Rare Dests</th>
+                  <th>Rarest Destination Contacted</th>
+                  <th>Global Hits</th>
+                </tr>
+              </thead>
+              <tbody id="timeline-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: EVIDENCE GRAPH -->
+      <section id="tab-graph" class="tab-pane">
+        <div class="pane-header">
+          <h2>Neo4j Evidence Graph Representation</h2>
+          <p class="subtitle">Multi-hop graph relationships: Endpoint &rarr; File &rarr; SHA256 &rarr; Destination &rarr; Unit</p>
+        </div>
+
+        <div class="graph-container glass-panel mt-3">
+          <div class="graph-toolbar">
+            <span class="legend-badge leg-ep">Endpoint</span>
+            <span class="legend-badge leg-file">Malware File</span>
+            <span class="legend-badge leg-hash">SHA256</span>
+            <span class="legend-badge leg-dest">Destination</span>
+            <span class="legend-badge leg-unit">Unit</span>
+            <button class="btn btn-sm" id="btn-reset-graph">Reset View</button>
+          </div>
+          <canvas id="graph-canvas" width="1100" height="520"></canvas>
+        </div>
+      </section>
+
+      <!-- TAB 7: ML ANOMALY ENGINE -->
+      <section id="tab-ml" class="tab-pane">
+        <div class="pane-header">
+          <h2>Isolation Forest Behavioral Anomaly Engine</h2>
+          <p class="subtitle">Unsupervised outlier scoring across multidimensional telemetry vectors (Contamination = 0.10)</p>
+        </div>
+
+        <div class="card glass-panel mt-3">
+          <div class="card-header">
+            <h3>Machine Learning Design Principles & Guardrails</h3>
+          </div>
+          <div class="card-body">
+            <div class="ml-principles-grid">
+              <div class="principle-box">
+                <h4>1. Anomaly &ne; Compromise</h4>
+                <p>Isolation Forest isolates points that deviate from fleet-wide behavioral baselines. Unusual activity is a triage prioritization signal, not evidence of malicious intent.</p>
+              </div>
+              <div class="principle-box">
+                <h4>2. Zero Ground-Truth Labels</h4>
+                <p>No synthetic labels were manufactured. Supervised classification was rejected to prevent overfitting to unconfirmed assumptions.</p>
+              </div>
+              <div class="principle-box">
+                <h4>3. Robust Feature Scaling</h4>
+                <p>RobustScaler (median & IQR) prevents massive web traffic volume from distorting the decision boundary.</p>
+              </div>
+              <div class="principle-box">
+                <h4>4. Attribution & Explainability</h4>
+                <p>Each anomaly score is accompanied by the exact feature dimensions that deviated most from fleet medians.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass-panel mt-4">
+          <div class="card-header">
+            <h3>Behaviorally Anomalous Hosts (Isolation Forest Output)</h3>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="ml-table">
+              <thead>
+                <tr>
+                  <th>Host</th>
+                  <th>Behavioral Anomaly Score</th>
+                  <th>Outlier Status</th>
+                  <th>Primary Deviating Dimensions</th>
+                </tr>
+              </thead>
+              <tbody id="ml-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 8: USB FORENSICS -->
+      <section id="tab-usb" class="tab-pane">
+        <div class="pane-header">
+          <h2>USB Peripheral Telemetry Audit</h2>
+          <p class="subtitle">Physical interface monitoring and mass storage correlation analysis</p>
+        </div>
+
+        <div class="card glass-panel mt-3">
+          <div class="table-container">
+            <table class="data-table" id="usb-table">
+              <thead>
+                <tr>
+                  <th>Endpoint ID</th>
+                  <th>Unit</th>
+                  <th>Hardware VID:PID</th>
+                  <th>Device Class</th>
+                  <th>Event Timestamp</th>
+                  <th>Raw Telemetry</th>
+                  <th>Security Correlation Status</th>
+                </tr>
+              </thead>
+              <tbody id="usb-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 9: FORENSIC EVIDENCE LEDGER -->
+      <section id="tab-ledger" class="tab-pane">
+        <div class="pane-header flex-between">
+          <div>
+            <h2>Forensic Evidence Ledger: Auditable Chain of Proof</h2>
+            <p class="subtitle">Every claim mapped to exact CSV row, line number, event timestamp, endpoint, and Cypher/GQL query</p>
+          </div>
+          <div class="filter-controls">
+            <input type="text" id="ledger-search" class="search-input" placeholder="Search Claims / Hosts / Lines...">
+            <select id="ledger-type-filter" class="select-input">
+              <option value="ALL">All Epistemic Types</option>
+              <option value="FACT">FACT (Directly Observed in Logs)</option>
+              <option value="INFERENCE">INFERENCE (Derived Causal Link)</option>
+              <option value="ANOMALY">ANOMALY (Statistical Outlier)</option>
+              <option value="ANALYST ASSESSMENT">ANALYST ASSESSMENT (Expert Judgment)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card glass-panel mt-3">
+          <div class="table-container">
+            <table class="data-table" id="ledger-table">
+              <thead>
+                <tr>
+                  <th>Claim ID</th>
+                  <th>Type</th>
+                  <th>Category</th>
+                  <th>Claim / Finding Statement</th>
+                  <th>Target Host</th>
+                  <th>Source File & Exact Line Pointer</th>
+                  <th>Event Timestamp</th>
+                  <th>Raw Evidence Snippet</th>
+                  <th>GQL / Cypher Query Pointer</th>
+                </tr>
+              </thead>
+              <tbody id="ledger-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
